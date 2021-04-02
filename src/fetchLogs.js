@@ -4,6 +4,7 @@ const messageTypes = [
   "ERROR Some error message",
 ];
 
+// function that simulates an async call to get more logs
 function fetchLogs() {
   return new Promise((resolve) => {
     setTimeout(() => {

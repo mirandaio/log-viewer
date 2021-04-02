@@ -28,19 +28,16 @@ function LogsViewer() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let isCurrent = true;
+    // set up an interval that will periodically fetch for new logs
     const interval = setInterval(() => {
       fetchLogs().then((data) => {
-        if (isCurrent) {
-          const newLogs = data.split("\n");
-          dispatch(updateLogs(newLogs));
-          dispatch(updateStats(newLogs));
-        }
+        const newLogs = data.split("\n");
+        dispatch(updateLogs(newLogs));
+        dispatch(updateStats(newLogs));
       });
-    }, 2000);
+    }, 1500);
 
     return () => {
-      isCurrent = false;
       clearInterval(interval);
     };
   }, [dispatch]);

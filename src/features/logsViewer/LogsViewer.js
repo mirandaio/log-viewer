@@ -46,19 +46,27 @@ function LogsViewer() {
   }, [dispatch]);
 
   return (
-    <Grid item container justify="space-around">
+    <Grid item container justify="space-around" md={12} lg={12} xl={7}>
       <Grid item md={4}>
         <Paper className={classes.statsContainer}>
           <Typography variant="h6" align="center">
             Statistics
           </Typography>
           <Grid container>
-            <Grid item xs={12} sm={12} md={4}>
+            <Grid item xs={12} sm={12} md={12} lg={4}>
               <div>INFO: {stats.info}</div>
               <div>WARNINGS: {stats.warning}</div>
               <div>ERRORS: {stats.error}</div>
             </Grid>
-            <Grid item xs={12} sm={12} md={8}>
+            <Grid
+              item
+              container
+              xs={12}
+              sm={12}
+              md={12}
+              lg={8}
+              justify="center"
+            >
               <PieChart stats={stats} />
             </Grid>
           </Grid>

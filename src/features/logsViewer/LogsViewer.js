@@ -79,7 +79,7 @@ function LogsViewer() {
       <Grid item>
         <Paper className={classes.logsContainer}>
           {logs.length === 0 ? (
-            <div style={{ width: 550 }}>Loading...</div>
+            <div style={{ width: 550 }}></div>
           ) : (
             <List
               height={600}

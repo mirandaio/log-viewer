@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Grid, Paper, Typography, makeStyles } from "@material-ui/core";
 import { selectStats, updateStats } from "./statsSlice";
 import { selectLogs, updateLogs } from "./logsSlice";
+import PieChart from "./PieChart";
 import fetchLogs from "../../fetchLogs";
 
 function Row({ index, style, data }) {
@@ -47,10 +48,19 @@ function LogsViewer() {
   return (
     <Grid item>
       <Paper className={classes.statsContainer}>
-        <Typography variant="h6">Statistics</Typography>
-        <div>INFO: {stats.info}</div>
-        <div>WARNINGS: {stats.warning}</div>
-        <div>ERRORS: {stats.error}</div>
+        <Typography variant="h6" align="center">
+          Statistics
+        </Typography>
+        <Grid container>
+          <Grid item md={6}>
+            <div>INFO: {stats.info}</div>
+            <div>WARNINGS: {stats.warning}</div>
+            <div>ERRORS: {stats.error}</div>
+          </Grid>
+          <Grid item md={6}>
+            <PieChart stats={stats} />
+          </Grid>
+        </Grid>
       </Paper>
       <Paper className={classes.logsContainer}>
         <List

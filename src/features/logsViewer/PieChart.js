@@ -41,6 +41,8 @@ function PieChart({ stats }) {
       </g>
       <g fontSize="13" textAnchor="middle">
         {arcs.map((a) => {
+          if (a.data.value === 0) return null;
+
           return (
             <text
               key={a.data.name}

@@ -46,33 +46,37 @@ function LogsViewer() {
   }, [dispatch]);
 
   return (
-    <Grid item>
-      <Paper className={classes.statsContainer}>
-        <Typography variant="h6" align="center">
-          Statistics
-        </Typography>
-        <Grid container>
-          <Grid item md={6}>
-            <div>INFO: {stats.info}</div>
-            <div>WARNINGS: {stats.warning}</div>
-            <div>ERRORS: {stats.error}</div>
+    <Grid item container justify="space-around">
+      <Grid item md={4}>
+        <Paper className={classes.statsContainer}>
+          <Typography variant="h6" align="center">
+            Statistics
+          </Typography>
+          <Grid container>
+            <Grid item xs={12} sm={12} md={4}>
+              <div>INFO: {stats.info}</div>
+              <div>WARNINGS: {stats.warning}</div>
+              <div>ERRORS: {stats.error}</div>
+            </Grid>
+            <Grid item xs={12} sm={12} md={8}>
+              <PieChart stats={stats} />
+            </Grid>
           </Grid>
-          <Grid item md={6}>
-            <PieChart stats={stats} />
-          </Grid>
-        </Grid>
-      </Paper>
-      <Paper className={classes.logsContainer}>
-        <List
-          height={600}
-          itemCount={logs.length}
-          itemSize={35}
-          width={550}
-          itemData={{ logs }}
-        >
-          {Row}
-        </List>
-      </Paper>
+        </Paper>
+      </Grid>
+      <Grid item>
+        <Paper className={classes.logsContainer}>
+          <List
+            height={600}
+            itemCount={logs.length}
+            itemSize={35}
+            width={550}
+            itemData={{ logs }}
+          >
+            {Row}
+          </List>
+        </Paper>
+      </Grid>
     </Grid>
   );
 }

@@ -5,11 +5,12 @@ const HEIGHT = 280;
 const RADIUS = Math.min(WIDTH, HEIGHT) / 2 - 30;
 const LABEL_RADIUS = RADIUS * 0.65;
 
-function PieChart({ stats }) {
-  const data = [];
-  Object.keys(stats).forEach((key) =>
-    data.push({ name: key, value: stats[key] })
-  );
+function PieChart({ info, warning, error }) {
+  const data = [
+    { name: "INFO", value: info },
+    { name: "WARNING", value: warning },
+    { name: "ERROR", value: error },
+  ];
 
   const pie = d3
     .pie()
@@ -22,8 +23,8 @@ function PieChart({ stats }) {
 
   const color = d3
     .scaleOrdinal()
-    .domain(data.map((d) => d.name))
-    .range(d3.schemePastel1);
+    .domain(["INFO", "WARNING", "ERROR"])
+    .range(["#4e79a7", "#edc949", "#e15759"]);
 
   return (
     <svg

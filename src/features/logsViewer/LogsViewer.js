@@ -55,8 +55,8 @@ function LogsViewer() {
           <Grid container>
             <Grid item xs={12} sm={12} md={12} lg={4}>
               <div>INFO: {stats.info}</div>
-              <div>WARNINGS: {stats.warning}</div>
-              <div>ERRORS: {stats.error}</div>
+              <div>WARNING: {stats.warning}</div>
+              <div>ERROR: {stats.error}</div>
             </Grid>
             <Grid
               item
@@ -67,22 +67,30 @@ function LogsViewer() {
               lg={8}
               justify="center"
             >
-              <PieChart stats={stats} />
+              <PieChart
+                info={stats.info}
+                warning={stats.warning}
+                error={stats.error}
+              />
             </Grid>
           </Grid>
         </Paper>
       </Grid>
       <Grid item>
         <Paper className={classes.logsContainer}>
-          <List
-            height={600}
-            itemCount={logs.length}
-            itemSize={35}
-            width={550}
-            itemData={{ logs }}
-          >
-            {Row}
-          </List>
+          {logs.length === 0 ? (
+            <div style={{ width: 550 }}>Loading...</div>
+          ) : (
+            <List
+              height={600}
+              itemCount={logs.length}
+              itemSize={35}
+              width={550}
+              itemData={{ logs }}
+            >
+              {Row}
+            </List>
+          )}
         </Paper>
       </Grid>
     </Grid>

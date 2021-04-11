@@ -1,9 +1,21 @@
+import React from "react";
 import * as d3 from "d3";
 
 const WIDTH = 280;
 const HEIGHT = 280;
 const RADIUS = Math.min(WIDTH, HEIGHT) / 2 - 30;
 const LABEL_RADIUS = RADIUS * 0.65;
+
+const pie = d3
+  .pie()
+  .sort(null)
+  .value((d) => d.value);
+const arc = d3.arc().innerRadius(0).outerRadius(RADIUS);
+const arcLabel = d3.arc().innerRadius(LABEL_RADIUS).outerRadius(LABEL_RADIUS);
+const color = d3
+  .scaleOrdinal()
+  .domain(["INFO", "WARNING", "ERROR"])
+  .range(["#4e79a7", "#edc949", "#e15759"]);
 
 function PieChart({ info, warning, error }) {
   const data = [
@@ -12,19 +24,7 @@ function PieChart({ info, warning, error }) {
     { name: "ERROR", value: error },
   ];
 
-  const pie = d3
-    .pie()
-    .sort(null)
-    .value((d) => d.value);
-
   const arcs = pie(data);
-  const arc = d3.arc().innerRadius(0).outerRadius(RADIUS);
-  const arcLabel = d3.arc().innerRadius(LABEL_RADIUS).outerRadius(LABEL_RADIUS);
-
-  const color = d3
-    .scaleOrdinal()
-    .domain(["INFO", "WARNING", "ERROR"])
-    .range(["#4e79a7", "#edc949", "#e15759"]);
 
   return (
     <svg
@@ -59,4 +59,4 @@ function PieChart({ info, warning, error }) {
   );
 }
 
-export default PieChart;
+export default React.memo(PieChart);

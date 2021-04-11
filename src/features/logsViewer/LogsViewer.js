@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FixedSizeList as List } from "react-window";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, Paper, Typography, makeStyles } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import { selectStats, updateStats } from "./statsSlice";
 import { selectLogs, updateLogs } from "./logsSlice";
 import PieChart from "./PieChart";
@@ -76,19 +77,23 @@ function LogsViewer() {
               lg={8}
               justify="center"
             >
-              <PieChart
-                info={stats.info}
-                warning={stats.warning}
-                error={stats.error}
-              />
+              {logs.length === 0 ? (
+                "Loading..."
+              ) : (
+                <PieChart
+                  info={stats.info}
+                  warning={stats.warning}
+                  error={stats.error}
+                />
+              )}
             </Grid>
           </Grid>
         </Paper>
       </Grid>
-      <Grid item>
+      <Grid item md={6}>
         <Paper className={classes.logsContainer}>
           {logs.length === 0 ? (
-            <div style={{ width: 550 }}></div>
+            <Skeleton variant="rect" height={600} />
           ) : (
             <List
               height={600}

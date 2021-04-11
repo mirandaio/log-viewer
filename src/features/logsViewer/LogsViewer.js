@@ -8,8 +8,27 @@ import { selectLogs, updateLogs } from "./logsSlice";
 import PieChart from "./PieChart";
 import fetchLogs from "../../fetchLogs";
 
+const msgColors = {
+  INFO: "#4e79a7",
+  WARNING: "#edc949",
+  ERROR: "#e15759",
+};
+
 function Row({ index, style, data }) {
-  return <div style={style}>{data.logs[index]}</div>;
+  const log = data.logs[index];
+  const logType = log.split(" ")[1];
+  const parts = log.split(logType);
+  const timestamp = parts[0];
+  const message = parts[1];
+  return (
+    <div style={style}>
+      {timestamp}
+      <span style={{ color: msgColors[logType], fontWeight: "bold" }}>
+        {logType}
+      </span>
+      {message}
+    </div>
+  );
 }
 
 const useStyle = makeStyles({

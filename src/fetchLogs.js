@@ -7,6 +7,7 @@ const messageTypes = [
 // function that simulates an async call to get more logs
 function fetchLogs() {
   return new Promise((resolve) => {
+    const delay = Math.floor(Math.random() * 4) + 1;
     setTimeout(() => {
       const numLogs = Math.floor(10 * Math.random()) + 1;
       const logs = new Array(numLogs);
@@ -18,7 +19,7 @@ function fetchLogs() {
         logs[i] = `${dt.slice(0, dt.length - 1)} ${messageTypes[messageType]}`;
       }
       resolve(logs.join("\n"));
-    }, 800);
+    }, delay * 1000);
   });
 }
 

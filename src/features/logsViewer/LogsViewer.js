@@ -62,32 +62,32 @@ function LogsViewer() {
           <Typography variant="h6" align="center">
             Statistics
           </Typography>
-          <Grid container>
-            <Grid item xs={12} sm={12} md={12} lg={4}>
-              <div>INFO: {stats.info}</div>
-              <div>WARNING: {stats.warning}</div>
-              <div>ERROR: {stats.error}</div>
-            </Grid>
-            <Grid
-              item
-              container
-              xs={12}
-              sm={12}
-              md={12}
-              lg={8}
-              justify="center"
-            >
-              {logs.length === 0 ? (
-                "Loading..."
-              ) : (
+          {logs.length === 0 ? (
+            <Skeleton height={250} width="100%" />
+          ) : (
+            <Grid container>
+              <Grid item xs={12} sm={12} md={12} lg={4}>
+                <div>INFO: {stats.info}</div>
+                <div>WARNING: {stats.warning}</div>
+                <div>ERROR: {stats.error}</div>
+              </Grid>
+              <Grid
+                item
+                container
+                xs={12}
+                sm={12}
+                md={12}
+                lg={8}
+                justify="center"
+              >
                 <PieChart
                   info={stats.info}
                   warning={stats.warning}
                   error={stats.error}
                 />
-              )}
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Paper>
       </Grid>
       <Grid item md={6}>

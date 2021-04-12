@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FixedSizeList as List } from "react-window";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, Paper, Typography, makeStyles } from "@material-ui/core";
@@ -43,7 +43,7 @@ const useStyle = makeStyles({
 
 function LogsViewer() {
   const classes = useStyle();
-  const [intervalFlag, setIntervalFlag] = useState(false);
+
   const logs = useSelector(selectLogs);
   const stats = useSelector(selectStats);
   const dispatch = useDispatch();
@@ -52,27 +52,23 @@ function LogsViewer() {
     let isFetching = false;
     let interval;
 
-    if (!intervalFlag) {
-      // set up an interval that will periodically fetch for new logs
-      interval = setInterval(() => {
-        if (!isFetching) {
-          isFetching = true;
-          fetchLogs().then((data) => {
-            const newLogs = data.split("\n");
-            dispatch(updateLogs(newLogs));
-            dispatch(updateStats(newLogs));
-            isFetching = false;
-          });
-        }
-      }, 2000);
-
-      setIntervalFlag(false);
-    }
+    // set up an interval that will periodically fetch for new logs
+    interval = setInterval(() => {
+      if (!isFetching) {
+        isFetching = true;
+        fetchLogs().then((data) => {
+          const newLogs = data.split("\n");
+          dispatch(updateLogs(newLogs));
+          dispatch(updateStats(newLogs));
+          isFetching = false;
+        });
+      }
+    }, 2000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [dispatch, intervalFlag]);
+  }, [dispatch]);
 
   return (
     <Grid item container justify="space-around" md={12} lg={12} xl={7}>
